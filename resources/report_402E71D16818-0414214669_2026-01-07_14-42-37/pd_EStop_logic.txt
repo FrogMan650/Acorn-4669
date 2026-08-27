@@ -1,0 +1,46 @@
+PLC_LA_FILE 1
+(I0008) EStopOk
+(M0527) Stop_M
+(M0301) NoFaultOut
+(I0001) FirstAxisPlusLimitOk
+(I0002) FirstAxisMinusLimitOk
+(I0003) SecondAxisPlusLimitOk
+(I0004) SecondAxisMinusLimitOk
+(I0005) DriveOk
+(SR516) SkinResetSet_M
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+--NONE--
+2
+2
+(M0301) NoFaultOut
+1
+0
+5
+20
+0
+2
+1
+17010429 3716153344
+17073949 3707764736
+17074029 3170893824

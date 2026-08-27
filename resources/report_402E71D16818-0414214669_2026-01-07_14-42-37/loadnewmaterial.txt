@@ -1,0 +1,8 @@
+; LoadNewMaterial.txt - Move Machine to where Operator Can Reload Stack
+;
+;  Call: G65 "c:\cncm\LoadNewMaterial.txt"
+
+M61             ; start the lift moving down
+G53 X0 Y0       ; move to X-, Y+ limits of travel (same as machine zero)
+M101/50040      ; wait for lift to finish moving down
+M81             ; stop lift-down movement (if PLC has not stopped it already)

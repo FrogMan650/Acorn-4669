@@ -1,0 +1,8 @@
+<vcp_button>
+	<skin_event_num>96</skin_event_num>
+	<plc_output>
+		<number>1195</number>
+		<image_on>load_panels.svg</image_on>
+ 		<image_off>load_panel.svg</image_off>
+	</plc_output>
+</vcp_button>

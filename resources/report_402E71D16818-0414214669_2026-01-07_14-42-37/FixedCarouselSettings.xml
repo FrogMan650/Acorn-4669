@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<Table>
+  <FixedCarousel>True</FixedCarousel>
+  <DistanceToClear>0</DistanceToClear>
+  <ClearingAxis>1</ClearingAxis>
+</Table>

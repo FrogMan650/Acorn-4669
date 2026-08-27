@@ -1,0 +1,4 @@
+
+  Debug dump started 2026-01-07 14:40:29.955
+  ACORN Reset Source 00000001
+  ACORN Software Version : 5.08 (/cnc11/trunk R17062 clean)

@@ -1,0 +1,3 @@
+ATI Technologies Inc.
+4.6.0 Compatibility Profile Context 22.20.27.09.230330
+AMD Radeon(TM) Graphics

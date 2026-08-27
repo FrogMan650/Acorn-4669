@@ -1,0 +1,2732 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CncSkinning</name>
+    </assembly>
+    <members>
+        <member name="T:CncSkinning.Skinning">
+            <summary>
+            Class for getting and setting different system variables.
+            </summary>
+            <summary>
+            Class for getting DRO data from CNC12.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Axis">
+            <summary>
+            Class for setting and getting axis info.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Axis.Rate">
+            <summary>
+            The rates at which jogging occurs.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axis.Rate.MAX">
+            <summary>
+            Max rate
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axis.Rate.SLOW_JOG">
+            <summary>
+            Slow Jog Rate
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axis.Rate.FAST_JOG">
+            <summary>
+            *ACORN ONLY* Fast Jog Rate.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axis.Rate.FAST_JOG_MINUS">
+            <summary>
+            Fast Jog in the negative direction
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axis.Rate.FAST_JOG_PLUS">
+            <summary>
+            Fast jog in the positive direction
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axis.Rate.FAST_JOG_PLUS_PROBE">
+            <summary>
+            Fast jog probe in the positive direction
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axis.Rate.FAST_JOG_MINUS_PROBE">
+            <summary>
+            Fast jog probe in the positive direction
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axis.Rate.SLOW_JOG_PROBE">
+            <summary>
+            Slow jog probe
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axis.Rate.HOME_JOG">
+            <summary>
+            Homing Jog Rate
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Axis.Direction">
+            <summary>
+            The direction of the axis value.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axis.Direction.PLUS">
+            <summary>
+            Plus (positive) direction.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axis.Direction.MINUS">
+            <summary>
+            Minus (negative) direction.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.#ctor(CncSkinning.Skinning)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="parent">A reference to an already created Skinning object.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetAccelTime(CncSkinning.Skinning.Axes@,System.Double@)">
+            <summary>
+            Get the accel time for a given axis.
+            </summary>
+            <param name="axis">The axis to get the accel time for.</param>
+            <param name="accel_time">The desired accel time.</param>
+            <returns>
+            See ReturnCode enumeration for info on return codes.
+            </returns>
+            @code
+            // Get the acceleration time for axis 1 and store it as accel_time.
+            returnCode = m_skin.axis.GetAccelTime(Skinning.Axes.AXIS_1, out double accel_time);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetAccelTime(CncSkinning.Skinning.Axes,System.Double)">
+            <summary>
+            Set the acceleration time for the given axis.
+            </summary>
+            <param name="axis">The axis to set the acceleration time for.</param>
+            <param name="time">The time to set.</param>
+            <returns>See ReturnCode documentation for more info on return codes.</returns>
+            @code
+            // Set the Accel Time for Axis 1 to a value of .7
+            returnCode = m_skin.axis.SetAccelTime(Skinning.Axes.AXIS_1, .7);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetCountsPerUnit(CncSkinning.Skinning.Axes,System.Double@)">
+            <summary>
+            Gets the counts per unit for the given axis.
+            Warning: Function is Deprecated
+            </summary>
+            <param name="axis">The axis to get</param>
+            <param name="counts_per_unit">The counts per unit for that axis.</param>
+            <returns>See ReturnCode enum for more information about return codes.</returns>
+            @code
+            // Get the counts per unit for Axis 1 and store it as counts_per_units.
+            returnCode = m_skin.axis.GetCountsPerUnit(Skinning.Axes.AXIS_1, out double counts_per_unit);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetCountsPerUnit(CncSkinning.Skinning.Axes,System.Double)">
+            <summary>
+            Set motor counts per unit for the given axis.
+            Warning: Function is Deprecated
+            </summary>
+            <param name="axis">The axis to set the value to.</param>
+            <param name="value">The value to set.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetDeadstartVelocity(CncSkinning.Skinning.Axes,System.Double@)">
+            <summary>
+            Get the deadstart velocity for a given axis.
+            </summary>
+            <param name="axis">The axis to get the deadstart velocity for.</param>
+            <param name="deadstart_velocity">The deadstart velocity for that axis.</param>
+            <returns>See ReturnCode enum for more information.</returns>
+            @code
+            // Get the deadstart velocity for Axis 1 and store in as deadstart_velocity.
+            returnCode = m_skin.axis.GetDeadstartVelocity(Skinning.Axes.AXIS_1, out double deadstart_velocity);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetDeadstartVelocity(CncSkinning.Skinning.Axes,System.Double)">
+            <summary>
+            Set the deadstart velocity for the given axis.
+            </summary>
+            <param name="axis">The axis to set the deadstart velocity for.</param>
+            <param name="velocity">The velocity to set.</param>
+            <returns>SUCCESS if the deadstart velocity was set successfully; ERROR code otherwise.</returns>
+            @code
+            // Set the Dead Start Velocity of Axis 1 to a value of .2.
+            returnCode = m_skin.axis.SetDeadstartVelocity(Skinning.Axes.AXIS_1, .2);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetDeltaVMax(CncSkinning.Skinning.Axes,System.Double@)">
+            <summary>
+            Get the delta vmax for the specified axis.
+            </summary>
+            <param name="axis">The desired axis</param>
+            <param name="delta_v_max">The delta vmax for that axis.</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Get the Delta V Max for Axis 1 and store it as delta_v_max.
+            returnCode = m_skin.axis.GetDeltaVMax(Skinning.Axes.AXIS_1, out double delta_v_max);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetDeltaVMax(CncSkinning.Skinning.Axes,System.Double)">
+            <summary>
+            Set the delta vmax for the specified axis.
+            </summary>
+            <param name="axis">The desired axis</param>
+            <param name="delta_v_max">The desired delta vmax</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Set the Delta V Max of Axis 1 to a value of 1.3.
+            returnCode = m_skin.axis.SetDeltaVMax(Skinning.Axes.AXIS_1, 1.3);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetRate(CncSkinning.Skinning.Axes,CncSkinning.Skinning.Axis.Rate,System.Double@)">
+            <summary>
+            Get rate for a given axis
+            </summary>
+            <param name="axis">The axis to get the rate for.</param>
+            <param name="jog_rate">Either max, slow jog, fast jog minus, or fast jog plus</param>
+            <param name="rate">The rate for the axis.</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Get the Slow Jog Rate for Axis 1 and store it as rate.
+            returnCode = m_skin.axis.GetRate(Skinning.Axes.AXIS_1, Skinning.Axis.JogRate.SLOW_JOG, out double rate);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetLabel(CncSkinning.Skinning.Axes,System.Char@)">
+            <summary>
+            Get the label for the given axis.
+            </summary>
+            <param name="axis">The axis whose label to get.</param>
+            <param name="label">The label of the axis</param>
+            <returns>SUCESS or an error code.</returns>
+            @code
+            // Get the Label for Axis 1 and store it as label.
+            returnCode = m_skin.axis.GetLabel(Skinning.Axes.AXIS_1, out char label);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetLashComp(CncSkinning.Skinning.Axes,System.Double@)">
+            <summary>
+            Get the lash comp for an axis.
+            </summary>
+            <param name="axis">The axis to get the lash comp for</param>
+            <param name="lash_comp">The lash comp of the axis.</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Get the Lash Comp for Axis 1 and store it as lash_comp.
+            returnCode = m_skin.axis.GetLashComp(Skinning.Axes.AXIS_1, out double lash_comp);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetScrewPitch(CncSkinning.Skinning.Axes,System.Double@)">
+            <summary>
+            Get the screw pitch for an axis.
+            </summary>
+            <param name="axis">The axis to get the screw pitch for</param>
+            <param name="screw_pitch">The screw pitch of the axis.</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Get the Screw Pitch for Axis 1 and store it as screw_pitch.
+            returnCode = m_skin.axis.GetScrewPitch(Skinning.Axes.AXIS_1, out double screw_pitch);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetLabel(CncSkinning.Skinning.Axes,System.Char)">
+            <summary>
+            Set the label for a given axis.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="label">The desired label</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Set the Label of Axis 1 to A.
+            returnCode = m_skin.axis.SetLabel(Skinning.Axes.AXIS_1, 'A');
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetLashComp(CncSkinning.Skinning.Axes,System.Double)">
+            <summary>
+            Set the lash comp for a given axis.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="value">The desired lash comp</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Set the Lash Comp of Axis 1 to a value of .23.
+            returnCode = m_skin.axis.SetLashComp(Skinning.Axes.AXIS_1, .23);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetRate(CncSkinning.Skinning.Axes,CncSkinning.Skinning.Axis.Rate,System.Double)">
+            <summary>
+            Set the desired rate for the given axis.
+            </summary>
+            <param name="axis">The axis to set</param>
+            <param name="rate">The desired rate</param>
+            <param name="rate_type">Either max, slow jog, fast jog minus, or fast jog plus</param>
+            <returns>SUCCESS or error code.</returns>
+            @code
+            // Set the Slow Jog Rate of Axis 1 to a value of 3.2.
+            returnCode = m_skin.axis.SetRate(Skinning.Axes.AXIS_1, 3.2, Skinning.Axis.JogRate.SLOW_JOG);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetScrewPitch(CncSkinning.Skinning.Axes,System.Double)">
+            <summary>
+            Set the screw pitch for a given axis.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="value">Give in turns/inch if your machine is in inches; if the machine is in metric, give in mm/turn</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Set the Screw Pitch of Axis 1 to a value of 3.6.
+            returnCode = m_skin.axis.SetScrewPitch(Skinning.Axes.AXIS_1, 3.6);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetLimit(CncSkinning.Skinning.Axes,CncSkinning.Skinning.Axis.Direction,System.Double@)">
+            <summary>
+            Gets the axis limits for a specified axis and direction.
+            </summary>
+            <param name="axis">The axis to get.</param>
+            <param name="direction">The direction, positive or negative.</param>
+            <param name="axis_limit">Inches or millimeters depending on machine unit configuration.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetLimit(CncSkinning.Skinning.Axes,CncSkinning.Skinning.Axis.Direction,System.Double)">
+            <summary>
+            Set the axis limit for a specified axis and direction.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="direction">The direction, positive or negative.</param>
+            <param name="value">Inches or millimeters depending on machine unit configuration.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetHomeLimit(CncSkinning.Skinning.Axes,CncSkinning.Skinning.Axis.Direction,System.Double@)">
+            <summary>
+            Get the axis home limit for a specified axis and direction.
+            </summary>
+            <param name="axis">The axis to get.</param>
+            <param name="direction">The direction, positive or negative.</param>
+            <param name="home_limit">Inches or millimeters depending on machine unit configuration.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetHomeLimit(CncSkinning.Skinning.Axes,CncSkinning.Skinning.Axis.Direction,System.Double)">
+            <summary>
+            Set the axis home limit for a specified axis and direction.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="direction">The direction, positive or negative.</param>
+            <param name="value">Inches or millimeters depending on machine unit configuration.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetAxisReversal(CncSkinning.Skinning.Axes,System.Boolean@)">
+            <summary>
+            Get whether the axis is reversed or not.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="is_axis_reversed">True if axis direction is reversed, false if not.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetAxisReversal(CncSkinning.Skinning.Axes,System.Boolean)">
+            <summary>
+            Set whether the axis is reversed or not.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="is_axis_reversed">True if axis direction is reversed, false if not.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetCountsPerTurn(CncSkinning.Skinning.Axes,System.Double@)">
+            <summary>
+            Get motor counts per turn (i.e. steps per rev)
+            </summary>
+            <param name="axis">The axis to get.</param>
+            <param name="counts_per_turn">The current set value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetCountsPerTurn(CncSkinning.Skinning.Axes,System.Double)">
+            <summary>
+            Set motor counts per turn (i.e. steps per rev)
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="value">The value to set.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetTravelLimit(CncSkinning.Skinning.Axes,CncSkinning.Skinning.Axis.Direction,System.Double@)">
+            <summary>
+            Get the travel limit for a specified axis in a specified direction.
+            </summary>
+            <param name="axis">The axis to get.</param>
+            <param name="direction">The direction of the limit.</param>
+            <param name="travel_limit">The value of the specified limit.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetTravelLimit(CncSkinning.Skinning.Axes,CncSkinning.Skinning.Axis.Direction,System.Double)">
+            <summary>
+            Set a travel limit for a specified axis in a specified direction.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="direction">The direction of the limit.</param>
+            <param name="value">The value to set the limit to.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetScalesInput(CncSkinning.Skinning.Axes,System.Int32@)">
+            <summary>
+            Get the encorder input that is scaling a specified axis.
+            </summary>
+            <param name="axis">The axis to get.</param>
+            <param name="encoder_number">The encorder input number.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetScalesInput(CncSkinning.Skinning.Axes,System.Int32)">
+            <summary>
+            Set a encoder input for scaling a specified axis.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="value">The encoder's input the axis will be set to scale from.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetScalesEnable(CncSkinning.Skinning.Axes,System.Boolean@)">
+            <summary>
+            Get if scaling enabled a specified axis.
+            </summary>
+            <param name="axis">The axis to get.</param>
+            <param name="enabled">Enabled or not.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetScalesEnable(CncSkinning.Skinning.Axes,System.Boolean)">
+            <summary>
+            Set a scaling to be enabled for a specified axis.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="enabled">The encoder's input the axis will be set to scale from.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetScalesCounts(CncSkinning.Skinning.Axes,System.Double@)">
+            <summary>
+            Get the counts that a specified axis will scale in.
+            </summary>
+            <param name="axis">The axis to get.</param>
+            <param name="scaling_counts">The counts scaled by.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetScalesCounts(CncSkinning.Skinning.Axes,System.Double)">
+            <summary>
+            Set the counts a specified axis will be scaled by.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="value">The value to set the scaling by.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetScalesVelocity(CncSkinning.Skinning.Axes,System.Double@)">
+            <summary>
+            Get the velocity for sclaing for a specified axis.
+            </summary>
+            <param name="axis">The axis to get.</param>
+            <param name="scaling_velocity">The velocity for scaling.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetScalesVelocity(CncSkinning.Skinning.Axes,System.Double)">
+            <summary>
+            Set the velocity for scaling for a specified axis.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="value">The value to set the velocity of scaling by.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.GetScalesDeadband(CncSkinning.Skinning.Axes,System.Int32@)">
+            <summary>
+            Get the deadband for scaling for a specified axis.
+            </summary>
+            <param name="axis">The axis to get.</param>
+            <param name="scaling_deadband">The deadband for scaling.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Axis.SetScalesDeadband(CncSkinning.Skinning.Axes,System.Int32)">
+            <summary>
+            Set the deaband for sacling for a specified axis.
+            </summary>
+            <param name="axis">The axis to set.</param>
+            <param name="value">The value to set the scaling deadband by.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CncSkinning.Skinning.MessageWindow">
+            <summary>
+            Class for getting status window information.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.MessageWindow.#ctor(CncSkinning.Skinning)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="parent">the name of an already initialized Skinning object.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.MessageWindow.GetMessages(System.String[]@)">
+            <summary>
+            Get the messages from the Message Window in CNC12.
+            </summary>
+            <param name="messages">The messages from the message window.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.MessageWindow.AddMessage(System.String,System.Int32,System.Int32)">
+            <summary>
+            Displays a message in the status window with the given colors.
+            </summary>
+            <param name="message">The message to display</param>
+            <param name="backgroundColor">Background color of message (hex 0x00bbggrr format)</param>
+            <param name="textColor">Text color of message (hex 0x00bbggrr format)</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="T:CncSkinning.Skinning.ReturnCode">
+            <summary>
+            The possible return codes for skinning functions.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_CLIENT_LOCKED">
+            <summary>
+            The machine is not allowed to move at this time.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_INVALID_ARGUMENT">
+            <summary>
+            The value could not be interpreted as a number by CNC12.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_INVALID_AXIS">
+            <summary>
+            Axis was not found to be in range 1 - 8.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_INVALID_PLC_BIT_NUMBER">
+            <summary>
+            Invalid plc bit number was selected.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_INVALID_PLC_BIT_TYPE">
+            <summary>
+            Invalid plc bit type was selected.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_INVALID_REQUEST">
+            <summary>
+            Request cannot be granted under current configuration.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_INVALID_SKINNING_DATA_WORD_INDEX">
+            <summary>
+            The index was out of range. 
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_JOB_IN_PROGRESS">
+            <summary>
+            A value could not be set because a job is running.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_PIPE_IS_BROKEN">
+            <summary>
+            CNC12 closed while you were trying to use the pipe.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_PLC_SEND_SKINNING_DATA">
+            <summary>
+            Could not send skinning data to the plc.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_SAVE_CONFIGURATION">
+            <summary>
+            Could not save the configuration that was changed.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_SEND_COMMAND">
+            <summary>
+            The command was not sent successfully to CNC12.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_SEND_PID_SETUPS">
+            <summary>
+            CNC12 could not send PID setups to the MPU.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_SEND_SETUPS">
+            <summary>
+            CNC12 could not send setups to the MPU.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_OUT_OF_RANGE">
+            <summary>
+            The value is out of range for the PC.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_CONVERSION">
+            <summary>
+            Could not convert value to a valid number.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_UNKNOWN">
+            <summary>
+            An unknown error occurred.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERROR_VALIDATION">
+            <summary>
+            CNC12 could not set value because it is not valid.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.STATUS_UNKNOWN">
+            <summary>
+            Skinning API received unknown response from CNC12.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.ERR_DEPRECATED">
+            <summary>
+            Skinning API received call to deprecated function.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.ReturnCode.SUCCESS">
+            <summary>
+            No errors occurred.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Screen">
+            <summary>
+            Class to get screen and viewport info.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Screen.#ctor(CncSkinning.Skinning)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="parent">A reference to an already created Skinning object.</param>
+        </member>
+        <member name="T:CncSkinning.Skinning.Screen.Viewport">
+            <summary>
+            Enumerates the different viewports.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Screen.Viewport.VIEWPORT_ACTIVE_G_CODES">
+            <summary>
+            active g-codes display viewport
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Screen.Viewport.VIEWPORT_DRO">
+            <summary>
+            dro viewport
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Screen.Viewport.VIEWPORT_FKEY">
+            <summary>
+            The f-keys viewport
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Screen.Viewport.VIEWPORT_MESSAGE">
+            <summary>
+            message viewport
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Screen.GetViewportInfo(CncSkinning.Skinning.Screen.Viewport,System.Int32@,System.Int32@)">
+            <summary>
+            Get info from the specified viewport
+            </summary>
+            <param name="viewport">The viewport to get info for</param>
+            <param name="width">width of the viewport</param>
+            <param name="height">height of the viewport</param>
+            <returns></returns>
+        </member>
+        <member name="T:CncSkinning.Skinning.Sys">
+            <summary>
+            A class for getting system-related information.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Sys.MachineTypes">
+            <summary>
+            The machine types
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.MachineTypes.ACORN">
+            <summary>Acorn</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.MachineTypes.ACORNSIX">
+            <summary>AcornSix</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.MachineTypes.HICKORY">
+            <summary>Hickory</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.MachineTypes.OAK">
+            <summary>Oak</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.MachineTypes.ALLINONEDC">
+            <summary>AllInOneDC</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.MachineTypes.EMULATOR">
+            <summary>Emulator</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.MachineTypes.UNKNOWN">
+            <summary>Unknown</summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Sys.Ether1616Device">
+            <summary>
+            The structure of an Ether1616 device.
+            </summary>
+        </member>
+        <member name="P:CncSkinning.Skinning.Sys.Ether1616Device.IP">
+            <summary>
+            The IP of the device.
+            </summary>
+        </member>
+        <member name="P:CncSkinning.Skinning.Sys.Ether1616Device.DeviceNumber">
+            <summary>
+            The determining factor of where the IO starts at in the PLC. (e.g. Device 0 starts at 33 and has
+            a jumper on "A0").
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Sys.UnlockVersions">
+            <summary>
+            Enum of Unlock Software Versions
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.UNKNOWN">
+            <summary>Unknown</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.FREE_MILL">
+            <summary>Mill Free</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.PRO_MILL">
+            <summary>Mill Pro</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.ULTIMATE_MILL">
+            <summary>Mill Ultimate</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.FREE_LATHE">
+            <summary>Lathe Free</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.PRO_LATHE">
+            <summary>Lathe Pro</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.ULTIMATE_LATHE">
+            <summary>Lathe Ultimate</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.FREE_ROUTER">
+            <summary>Router Free</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.PRO_ROUTER">
+            <summary>Router Pro</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.ULTIMATE_ROUTER">
+            <summary>Router Ultimate</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.FREE_PLASMA">
+            <summary>Plasma Free</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.PRO_PLASMA">
+            <summary>Plasma Pro</summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Sys.UnlockVersions.ULTIMATE_PLASMA">
+            <summary>Plasma Ultimate</summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Sys.#ctor(CncSkinning.Skinning)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="parent">A reference to an already created Skinning object.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Sys.GetUnlockVersion(CncSkinning.Skinning.Sys.UnlockVersions@)">
+            <summary>
+            Get the unlock version of machine connected to
+            </summary>
+            <param name="unlocks">Unlocked Version</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Sys.ParseUnlockVersion(System.String)">
+            <summary>
+            Get machine unlock version from string
+            </summary>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Sys.GetSystemIdentifier(System.Int64@)">
+            <summary>
+            Get the System ID of the machine to which this skinning app is connected.
+            </summary>
+            <param name="identifier">The system ID</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Sys.GetMachineType(CncSkinning.Skinning.Sys.MachineTypes@)">
+            <summary>
+            Get the machine type the skinning api is connected to.
+            </summary>
+            <param name="machine">The machine type</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Sys.ExitSoftware">
+            <summary>
+            Closes CNCXX software gracefully.
+            </summary>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Sys.GetPLCEXP1616NumberofDevices(System.Int32@)">
+            <summary>
+            Gets Number of all PLCEXP1616 devices connected.
+            </summary>
+            <param name="number_of_devices">Number of PLCEXP1616 devices connected</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Sys.GetEther1616DeviceInfo(System.Collections.Generic.List{CncSkinning.Skinning.Sys.Ether1616Device}@)">
+            <summary>
+            Get all valid and attached Ether1616 Device information.
+            </summary>
+            <param name="devices">List of Ether1616 device info</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Sys.IsENCEXP12Connected(System.Boolean@)">
+            <summary>
+            If ENCEXP12 connected to the AcornSix Board
+            </summary>
+            <param name="encexp12Connected">ENCEXP12 connection status</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Sys.GetEth1616DevicesFromString(System.String)">
+            <summary>
+            Parse Ether1616 device data from the return string.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Sys.ParseEther1616DeviceAddress(System.String)">
+            <summary>
+            Get the address of the device from the string.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Sys.ParseEther1616DeviceNumber(System.String)">
+            <summary>
+            Get the device number from the string.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CncSkinning.Skinning.Axes">
+            <summary>
+            A list of axes.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axes.AXIS_1">
+            <summary>
+            Axis 1
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axes.AXIS_2">
+            <summary>
+            Axis 2
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axes.AXIS_3">
+            <summary>
+            Axis 3
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axes.AXIS_4">
+            <summary>
+            Axis 4
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axes.AXIS_5">
+            <summary>
+            Axis 5
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axes.AXIS_6">
+            <summary>
+            Axis 6
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axes.AXIS_7">
+            <summary>
+            Axis 7
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Axes.AXIS_8">
+            <summary>
+            Axis 8
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.axis">
+            <summary>
+            Class for getting/setting axis info.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.csr">
+            <summary>
+            Class for getting/setting csr info.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.dro">
+            <summary>
+            Class for getting dro info.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.job">
+            <summary>
+            Class for creating or running jobs.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.parameter">
+            <summary>
+            Class for getting/setting machine parameter values.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.plc">
+            <summary>
+            Class for getting/setting plc bits.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.screen">
+            <summary>
+            Class for getting screen and viewport info.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.state">
+            <summary>
+            Class for getting state info (feedrate, spindle speed, etc.)
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.system">
+            <summary>
+            Class for getting system related info.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.tool">
+            <summary>
+            Class for getting and setting tool info.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.wcs">
+            <summary>
+            Class for getting/setting wcs info.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.message_window">
+            <summary>
+            Class for getting status window information.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.#ctor(System.Int32)">
+            <summary>
+            Class constructor.  If successful, it will open a pipe for communicating with CNC12.
+            </summary>
+            <param name="timeout">The number of seconds to wait for a connection with CNC12.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.#ctor">
+            <summary>
+            Class constructor for calling with no arguments. 
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.#ctor(System.Boolean,System.Int32)">
+            <summary>
+            Class constructor.  If successful, it will open a pipe for communicating with CNC12.
+            </summary>
+            <param name="timeout">The number of seconds to wait for a connection with CNC12.</param>
+            <param name="useVcpPipe">Set to true to use the named pipe dedicated for VCP.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.IsConstructed">
+            <summary>
+            Tells if the class instance was successfully constructed.
+            </summary>
+            <returns>true if construction was successful; false otherwise</returns>
+        </member>
+        <member name="P:CncSkinning.Skinning.BurstMode">
+            <summary>
+            Sets if the skinning app is saving after every command or not
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.SendAndReceive(System.String,System.String@,System.Nullable{System.Boolean})">
+            <summary>
+            Send a command over the pipe to CNC12, and get the response back.
+            </summary>
+            <param name="command">The command to send.</param>
+            <param name="response">The response from CNC12.</param>
+            <param name="save">Tell CNC12 weather or not it should save</param>
+        </member>
+        <member name="T:CncSkinning.Skinning.Csr">
+            <summary>
+            Contains methods for getting and setting CSR angles.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Csr.#ctor(CncSkinning.Skinning)">
+            <summary>
+            Constructor for Csr struct.
+            </summary>
+            <param name="parent">Should be a reference to an already created CncSkinning.System object.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Csr.GetAngle(System.Double@)">
+            <summary>
+            Get the CSR angle for the CURRENTLY ACTIVE WCS.
+            </summary>
+            <param name="angle">The csr angle for the currently active wcs.</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Get the CSR Angle for the currently active WCS and store it as angle.
+            returnCode = m_skin.csr.GetAngle(out double angle);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Csr.GetAngle(System.Int32,System.Double@)">
+            <summary>
+            Get the CSR angle for the specified WCS.
+            </summary>
+            <param name="wcs">The WCS (1 - 18) whose CSR angle will be returned.</param>
+            <param name="csr_angle">The csr angle for the specified wcs.</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Get the CSR Angle of WCS 6 and store it as csr_angle.
+            returnCode = m_skin.csr.GetAngle(6, out double csr_angle);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Csr.SetAngle(System.Double)">
+            <summary>
+            Attempt to set the CSR angle for the ACTIVE WCS.
+            </summary>
+            <param name="angle">The CSR angle to assign to the active wcs.</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Set the CSR Angle of the currently active WCS to 35.6.
+            returnCode = m_skin.csr.SetAngle(35.6);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Csr.SetAngle(System.Int32,System.Double)">
+            <summary>
+            Attempt to set the CSR angle for the specified WCS.
+            </summary>
+            <param name="wcs">The WCS whose CSR angle you wish to set.</param>
+            <param name="angle">The CSR angle to assign to wcs.</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Set the CSR Angle of WCS 7 to 72.3.
+            returnCode = m_skin.csr.SetAngle(7, 72.3);
+            @endcode
+        </member>
+        <member name="M:CncSkinning.Skinning.Csr.DisableCSR">
+            <summary>
+            Disables the active CSR. CSR will reenable either when a job concludes or when ReenableCSR is called.
+            </summary>
+            <returns>Success or an error code</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Csr.ReenableCSR">
+            <summary>
+            Enables a previously disabled CSR. Will return error if DisableCSR was never called or if CSR was reenabled via the conclusion of a job
+            </summary>
+            <returns>Success or an error code</returns>
+        </member>
+        <member name="T:CncSkinning.Skinning.Dro">
+            <summary>
+            Class to get DRO information from CNC12.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Dro.DroCoordinates">
+            <summary>
+            The different types of information the DRO can provide.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Dro.DroCoordinates.DRO_LOCAL">
+            <summary>
+            Coordinates from selected wcs
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Dro.DroCoordinates.DRO_MACHINE">
+            <summary>
+            Machine coordinates
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Dro.DroCoordinates.DRO_DISTANCE_TO_GO">
+            <summary>
+            Values from the Distance-to-Go Dro.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Dro.#ctor(CncSkinning.Skinning)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="parent">Is a reference to an already constructed System object.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Dro.GetDro(CncSkinning.Skinning.Dro.DroCoordinates,System.Tuple{System.String,System.String,System.String}[]@)">
+            <summary>
+            Returns an array of strings containing the DRO readout from CNC12.
+            </summary>
+            <param name="dro_coordinates">The TYPE of dro coordinates you want to get.</param>
+            <param name="dro_strings">The dro readout as an array of string pairs (Axis, Position)</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Dro.SetDroCoordinates(CncSkinning.Skinning.Dro.DroCoordinates)">
+            <summary>
+            Set the Dro coordinates
+            </summary>
+            <param name="dro_coordinates">Local, Machine, or Distance-to-go</param>
+            <returns>SUCCESS or an error code</returns>
+        </member>
+        <member name="T:CncSkinning.Skinning.Job">
+            <summary>
+            A class for constructing and running jobs.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.#ctor(CncSkinning.Skinning)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="parent">A reference to an already constructed System object.</param>
+        </member>
+        <member name="T:CncSkinning.Skinning.Job.ProbeBossOrientation">
+            <summary>
+            The initial direction for probing a boss.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Job.ProbeBossOrientation.X_PLUS">
+            <summary>
+            Positive x direction.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Job.ProbeBossOrientation.Y_PLUS">
+            <summary>
+            Positive y direction.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Job.ProbeBossOrientation.X_MINUS">
+            <summary>
+            Negative x direction.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Job.ProbeBossOrientation.Y_MINUS">
+            <summary>
+            Negative y direction.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.AddArc(System.Tuple{System.Char,System.Double}[],System.Double,System.Double,CncSkinning.Skinning.State.CircularInterpolationDirection,CncSkinning.Skinning.State.CircularInterpolationPlane,CncSkinning.Skinning.State.PositioningMode)">
+            <summary>
+            Add a circular interpolation using the Final Point - Radius method (Method 1 from the manual).
+            </summary>
+            <param name="final_point">The end point of the arc.</param>
+            <param name="radius">The radius of the arc.</param>
+            <param name="feedrate">The feedrate to move along the arc.</param>
+            <param name="direction">Either counterclockwise or clockwise.</param>
+            <param name="plane">Either XY, ZX, or YZ</param>
+            <param name="positioning_mode">Either absolute or incremental.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.AddArc(System.Tuple{System.Char,System.Double}[],System.Double,System.Double,System.Double,System.Double,CncSkinning.Skinning.State.CircularInterpolationDirection,CncSkinning.Skinning.State.CircularInterpolationPlane,CncSkinning.Skinning.State.PositioningMode)">
+            <summary>
+            Add a circular arc using the Final Point - I,J,K method (method 2 from the manual).
+            </summary>
+            <param name="final_point">The end of the arc.</param>
+            <param name="I">Incremental distance x_center - x_start</param>
+            <param name="J">Incremental distance y_center - y_start</param>
+            <param name="K">Incremental distance z_center - z_start</param>
+            <param name="feedrate">The feedrate for moving along the arc.</param>
+            <param name="direction">Either clockwise or counterclockwise.</param>
+            <param name="plane">Either XY, ZX, or YZ</param>
+            <param name="positioning_mode">Either absolute or incremental.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.AddLinear(System.Tuple{System.Char,System.Double}[],System.Double,CncSkinning.Skinning.State.PositioningMode)">
+            <summary>
+            Add a linear (G1) move.
+            </summary>
+            <param name="end_pos">Point to move to.</param>
+            <param name="feedrate">Speed of travel</param>
+            <param name="positioning_mode">Either absolute or incremental.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.AddRapid(System.Tuple{System.Char,System.Double}[],CncSkinning.Skinning.State.PositioningMode)">
+            <summary>
+            Add a Rapid (G0) command
+            </summary>
+            <param name="end_pos">The position to rapid to.</param>
+            <param name="positioning_mode">either Absolute or Incremental.  Default is Absolute.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.Load(System.String,System.String)">
+            <summary>
+            Load an existing job into CNC12
+            </summary>
+            <param name="path">The path to the currently existing job.</param>
+            <param name="cnc12_working_directory">The path to the working directory of CNC12 that you are running.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.New(System.String)">
+            <summary>
+            Begin generating a new job.
+            </summary>
+            <param name="path">The path to the generated g-code file.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.ProbeBore">
+            <summary>
+            Probe a bore.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.ProbeBoss(CncSkinning.Skinning.Job.ProbeBossOrientation,System.Double,System.Double)">
+            <summary>
+            Probe a boss.
+            </summary>
+            <param name="orientation">The initial search direction.</param>
+            <param name="distance">The length or width of the boss.</param>
+            <param name="clearance">The height at which to travel over the boss.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.RunCommand(System.String,System.String,System.Boolean)">
+            <summary>
+            Run a command now.  If we require cycle start, it will post as an actual job.
+            </summary>
+            <param name="command">The g-code command to run.</param>
+            <param name="cnc12_working_directory">The path to the working directory of CNC12 that you are running.</param>
+            <param name="require_cycle_start">true by default.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.RunNow(System.String)">
+            <summary>
+            Post a job.  Pressing Cycle Start will then start running the job.
+            </summary>
+            <param name="cnc12_working_directory">The path to the working directory of CNC12 that you are running.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.CancelExecution">
+            <summary>
+            Cancel execution of a job. 
+            </summary>
+            <returns>ERROR_INVALID_REQUEST</returns>
+            <returns>SUCCESS otherwise</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.ContinueExecution">
+            <summary>
+            Continue execution of a job that is waiting at an M0/M200/M201 command. 
+            </summary>
+            <returns>ERROR_INVALID_REQUEST if machine parameter 440 is not set to 256</returns>
+            <returns>SUCCESS otherwise</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.GetJobRepeatState(System.Boolean@)">
+            <summary>
+            Get if job repeat is on or not
+            </summary>
+            <param name="repeat_state">The state of job repeat</param>
+            <returns>SUCCESS or an error</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.SetJobRepeatState(System.Boolean)">
+            <summary>
+            Set the Job Repeat State to on or off
+            </summary>
+            <param name="state">True (On) or False (Off)</param>
+            <returns>SUCCESS or an error</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.GetPartCount(System.Int32@)">
+            <summary>
+            Get the currently set part count
+            </summary>
+            <param name="part_count">Current part count</param>
+            <returns>SUCCESS or an error</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.GetPartNumber(System.Int32@)">
+            <summary>
+            Get the current part number
+            </summary>
+            <param name="part_number">Current part number</param>
+            <returns>SUCCESS or an error</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.SetMoveMode(CncSkinning.Skinning.State.MoveMode)">
+            <summary>
+            Add a command to set the move mode to Rapid, Linear, Clockwise Arc, or Counterclockwise Arc
+            </summary>
+            <param name="move_mode">Either RAPID, LINEAR, CW_ARC, or CCW_ARC</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.SetPositioningMode(CncSkinning.Skinning.State.PositioningMode)">
+            <summary>
+            Set the positioning mode.
+            </summary>
+            <param name="positioning_mode">Either absolute or incremental.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.GetUserVolatileSystemVariable(System.Int32,System.Single@)">
+            <summary>
+            Gets user votatile system variable (#100 - #149)
+            Warning: Function is Deprecated
+            </summary>
+            <param name="variable_number">The user variable</param>
+            <param name="value">The value of the variable</param>
+            <returns>SUCCESS or an error</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.GetUserSystemVariable(System.Int32,System.Double@)">
+            <summary>
+            Gets user system variable (#100 - #159, #29000 - #31999)
+            </summary>
+            <param name="variable_number">The user variable</param>
+            <param name="value">The value of the variable</param>
+            <returns>SUCCESS or an error</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Job.GetUserStringSystemVariable(System.Int32,System.String@)">
+            <summary>
+            Gets user string system variable (#300 - #399)
+            </summary>
+            <param name="variable_number">The user variable</param>
+            <param name="value">The value of the variable</param>
+            <returns>SUCCESS or an error</returns>
+        </member>
+        <member name="T:CncSkinning.Skinning.Plc">
+            <summary>
+            A class with functions related to PLC programming and state information.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Plc.IOState">
+            <summary>
+            Enumerates the possible IO states.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.IOState.IO_LOGICAL_0">
+            <summary>
+            Open or off
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.IOState.IO_LOGICAL_1">
+            <summary>
+            Closed or on
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.IOState.IO_INDEX_OUT_OF_RANGE">
+            <summary>
+            Invalid bit index
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.IOState.IO_STATE_UNKNOWN">
+            <summary>
+            State could not be determined
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.#ctor(CncSkinning.Skinning)">
+            <summary>
+            The PLC class constructor. 
+            </summary>
+            <param name="parent">Should be a reference to an already created CncSkinning.Skinning object.</param>
+        </member>
+        <member name="T:CncSkinning.Skinning.Plc.BitType">
+            <summary>
+            The type of PLC bit
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.BitType.Input">
+            <summary>
+            A PLC input bit
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.BitType.Output">
+            <summary>
+            A PLC output bit
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.BitType.Memory">
+            <summary>
+            A PLC memory bit
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Plc.IOMBit">
+            <summary>
+            Defines an input, output, or memory bit
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.IOMBit.type">
+            <summary>
+            A BitType enumeration
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.IOMBit.number">
+            <summary>
+            Bit number.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.IOMBit.state">
+            <summary>
+            The state of the bit, used when returning a watch list.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.IOMBit.vcpButton">
+            <summary>
+            The VCP button object
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetWatchList(System.Collections.Generic.List{CncSkinning.Skinning.Plc.IOMBit}@)">
+            <summary>
+            Get the states of watched bits previosuly set by SetPlcWatchList
+            </summary>
+            <param name="bitList">The list of PLC bits to watch.</param>
+            <returns>true on success</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.SetWatchList(System.Collections.Generic.List{CncSkinning.Skinning.Plc.IOMBit}@)">
+            <summary>
+            Set the PLC watch list. This command also returns with the current state of the bits updated in the bitList. 
+            When repeated calls using the same list occur, make an initial call to SetWatchList and then
+            retrieve the states using GetWatchList.
+            </summary>
+            <param name="bitList"></param>
+            <returns>true on success</returns>
+        </member>
+        <member name="T:CncSkinning.Skinning.Plc.InversionState">
+            <summary>
+            Inversion 
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.InversionState.NotIverted">
+            <summary>
+            The input is not inverted
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.InversionState.Inverted">
+            <summary>
+            The input is inverted
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Plc.ForceState">
+            <summary>
+            The state of PLC bit force
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.ForceState.NotForced">
+            <summary>
+            The PLC bit (input/output/memory) is not forced. It is controlled by the PLC program logic.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.ForceState.ForcedOn">
+            <summary>
+            The PLC bit (output/memory) is forced on/set. For input PLC bit types, this is the same as ForcedOff since inputs use the 
+            Inversion state to determine whether the input is forced on or off. 
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.ForceState.ForcedOff">
+            <summary>
+            The PLC bit (output/memory) is forced off/reset. For input PLC bit types, this is the same as ForcedOn since inputs use the 
+            Inversion state to determine whether the input is forced on or off. 
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.SetIoForceState(System.Int32,CncSkinning.Skinning.Plc.BitType,CncSkinning.Skinning.Plc.ForceState)">
+            <summary>
+            Set the state of output or memory bit forcing. Note that for memory bit types, the forcing occurs at the beginning of a PLC
+            program pass only, i.e., PLC code can still change the state of the memory bit if desired.
+            </summary>
+            <param name="ioBit">The PLC bit number 1 - 80</param>
+            <param name="bitType">BitType.Output or BitType.Memory</param>
+            <param name="state">ForceSate enumeration</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.SetSkinningDataWord(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Set a skinning data word. A skinning data word is a general purpose
+            32-bit integer value used to communicate with a PLC program. A PLC
+            program can reference this value using the SV_SKINNING_DATA_W_1 - SV_SKINNING_DATA_W_12 system variables.
+            </summary>
+            <param name="index">The one-based index (1-12)</param>
+            <param name="value">The value to set</param>
+            <param name="sendImmediately">If true, will immediately communicate any previously updated skinning data values to the MPU. If false, then the updated value will not be 
+            visible by the PLC program until another call to a SetSkinngData function is made with this parameter set to true.</param>
+            <returns>SUCCESS or an error code</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetSkinningDataWord(System.Int32,System.Int32@)">
+            <summary>
+            Return the value of a skinning data word.
+            </summary>
+            <param name="index">1 - 12</param>
+            <param name="skinning_data_word">The value of the skinning data word, or 0 if the index is out of range.</param>
+            <returns>SUCCESS or an error code</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.SetSkinningDataFloatWord(System.Int32,System.Single,System.Boolean)">
+            <summary>
+            Set a skinning data float word. A skinning data float word is a general purpose
+            32-bit floating point value used to communicate with a PLC program. A PLC
+            program can reference this value using the SV_SKINNING_DATA_FW_1 - SV_SKINNING_DATA_FW_11 system variables.
+            </summary>
+            <param name="index">1-11</param>
+            <param name="value">value to set</param>
+            <param name="sendImmediately">If true, will immediately communicate any previously updated skinning data values to the MPU. If false, then the updated value will not be 
+            visible by the PLC program until another call to a SetSkinngData function is made with this parameter set to true.</param>
+            <returns>true on success, false on error or index out of range.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetSkinningDataFloatWord(System.Int32,System.Single@)">
+            <summary>
+            Return the value of a skinning float word.
+            </summary>
+            <param name="index">1 - 11</param>
+            <param name="float_word">The value of the float word, or NaN if the index is out of range</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.SetSkinningDataDoubleFloatWord(System.Int32,System.Double,System.Boolean)">
+            <summary>
+            Set a skinning data double floating point word. A skinning data double floating point  word is a general purpose
+            64-bit double floating point value used to communicate with a PLC program. A PLC
+            program can reference this value using the SV_SKINNING_DATA_DFW_1 - SV_SKINNING_DATA_DFW_11 system variables.
+            </summary>
+            <param name="index">1-11</param>
+            <param name="value">value to set</param>
+            <param name="sendImmediately">If true, will immediately communicate any previously updated skinning data values to the MPU. If false, then the updated value will not be 
+            visible by the PLC program until another call to a SetSkinngData function is made with this parameter set to true.</param>
+            <returns>true on success, false on error or index out of range.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetSkinningDataDoubleFloatWord(System.Int32,System.Double@)">
+            <summary>
+            Return the value of a skinning double floating word.
+            </summary>
+            <param name="index">1 - 11</param>
+            <param name="word">The value of the skinning data word, 0r NaN if the index is out of range.</param>
+            <returns>SUCCESS, or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.SetInputIversionState(System.Int32,CncSkinning.Skinning.Plc.InversionState)">
+            <summary>
+            Set whether or not a PLC inpuit bit is inverted.
+            </summary>
+            <param name="inputBit">The PLC input biut 1- 80</param>
+            <param name="state">An InversionState enumberation</param>
+            <returns>SUCCESS or an error code</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.SetInputForceState(System.Int32,CncSkinning.Skinning.Plc.ForceState)">
+            <summary>
+            Set whether or not an input is forced to a given state.
+            </summary>
+            <param name="inputBit">The PLC input bit 1 - 80</param>
+            <param name="state">A ForceState enumeration. Note that ForceOn and ForceOff result in the same behavior. To force 
+            an input to a certain state, set the force state to ForceOn or ForceOff and use the PlcSetInputInversionState 
+            to set the state to which it is forced.</param>
+            <returns>SUCCESS or an error code</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetInputState(System.Int32,CncSkinning.Skinning.Plc.IOState@)">
+            <summary>
+            Return the state of the PLC input
+            </summary>
+            <param name="bitNumber">Valid values are 1 - 1312</param>
+            <param name="input_state">The input state of the plc bit</param>
+            <returns>true if input set, false if clear or invalid inputNumber</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetOutputState(System.Int32,CncSkinning.Skinning.Plc.IOState@)">
+            <summary>
+            Get the state (On or Off) of a PLC output.
+            </summary>
+            <param name="bitNumber">1-1312</param>
+            <param name="io_state">The io state for the given plc bit.</param>
+            <returns>SUCCESS or an error code</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetMemoryState(System.Int32,CncSkinning.Skinning.Plc.IOState@)">
+            <summary>
+            Get the state of a PLC memory bit.
+            </summary>
+            <param name="bitNumber">1-1024</param>
+            <param name="io_state">The state of the chosen bit number</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetMemoryState(System.Int32)">
+            <summary>
+            Determine the state of a PLC memory bit. This overloaded function may be more convenient to use with the drawback
+            that if it returns false, it could be casued by a bad bitNumber or other failure.
+            </summary>
+            <param name="bitNumber">A valid memory bit 1-1024</param>
+            <returns>true if the memory bit is set, false if clear or there is an error</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetInputState(System.Int32)">
+            <summary>
+            Determine the state of a PLC input bit. This overloaded function may be more convenient to use with the drawback
+            that if it returns false, it could be casued by a bad bitNumber or other failure.
+            </summary>
+            <param name="bitNumber">A valid input bit 1-1312</param>
+            <returns>true if the input bit is closed (logical 1), false if open (logical 0) or there is an error</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetOutputState(System.Int32)">
+            <summary>
+            Determine the state of a PLC output bit. This overloaded function may be more convenient to use with the drawback
+            that if it returns false, it could be casued by a bad bitNumber or other failure.
+            </summary>
+            <param name="bitNumber">A valid output bit 1-1312</param>
+            <returns>true if the output is on (logical 1), false if off (logical 0) or there is an error</returns>
+        </member>
+        <member name="T:CncSkinning.Skinning.Plc.DataType">
+            <summary>
+            PLC data type enumeration
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.DataType.W">
+            <summary>
+            32-bit integer data type. The PLC has 128 of these (W1 - W128). The value of the first 88 are sent to CNC software.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.DataType.DW">
+            <summary>
+            64-bit integer data. The PLC has 128 of these (DW1 - DW128). The value of the first 22 are sent to CNC software.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.DataType.FW">
+            <summary>
+            32-bit floating point data. The PLC has 128 of these (FW1 - FW128). The value of the first 44 are sent to CNC software. 
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Plc.DataType.DFW">
+            <summary>
+            64-buit double floating point data. The PLC has 128 of these (DFW1-DFW128). The value of the first 22 are sent to CNC software.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetPlcData(CncSkinning.Skinning.Plc.DataType,System.Int32)">
+            <summary>
+            Get PLC integer/floating point data (W, DW, FW, and DFW)
+            </summary>
+            <param name="type">A DataType enumeratrion</param>
+            <param name="index">index, zero-based and in valid range(0-87 for W, 0-21 for DW, 0-43 for FW, and 0-21 for DFW)</param>
+            <returns>The response string from CNC software</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetWordValue(System.Int32,System.Int32@)">
+            <summary>
+            Gets the value of the given PLC 32-bit integer W value.
+            </summary>
+            <param name="index">1 - 88. Note that although the PLC program has support for more W values, only the value of the first 88 are available to CNC software.</param>
+            <param name="value">The specifeid value.</param>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetDoubleWordValue(System.Int32,System.Int64@)">
+            <summary>
+            Gets the value of the given PLC 64-bit integer DW value.
+            </summary>
+            <param name="index">1 - 22. Note that although the PLC program has support for more DW values, only the value of the first 22 are available to CNC software.</param>
+            <param name="value">The specifeid value.</param>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetFloatWordValue(System.Int32,System.Single@)">
+            <summary>
+            Gets the value of the given PLC 32-bit floating point FW value.
+            </summary>
+            <param name="index">1 - 44. Note that although the PLC program has support for more FW values, only the value of the first 44 are available to CNC software.</param>
+            <param name="value">The specifeid value.</param>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetDoubleFloatWordValue(System.Int32,System.Double@)">
+            <summary>
+            Gets the value of the given PLC 64-bit double floating point DFW value.
+            </summary>
+            <param name="index">1 - 22. Note that although the PLC program has support for more DFW values, only the value of the first 22 are available to CNC software.</param>
+            <param name="value">The specifeid value.</param>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.SetSkinEventState(System.Int32,System.Int32)">
+            <summary>
+            Set skin event number to a given state.
+            </summary>
+            <param name="eventNumber">The skin event number.</param>
+            <param name="state">The given state.</param>
+            <returns>SUCCESS or an error code</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetPcSystemVariableBit(CncSkinning.PcToMpuSysVarBit,CncSkinning.Skinning.Plc.IOState@)">
+            <summary>
+            Get the state of a "PC" system variable bit.  A "PC" system varaible bit is, in most cases, set by the CNC softare running on the PC
+            and used to communicate status to the MPU hardware, in particular the PLC system.
+            </summary>
+            <param name="bit">Enumeration</param>
+            <param name="state">State of the bit</param>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetPlcSystemVariableBit(CncSkinning.MpuToPcSysVarBit,CncSkinning.Skinning.Plc.IOState@)">
+            <summary>
+            Get the state of a "PLC" system variable bit. A "PLC" system varaible bit is, in most cases, set by the PLC program 
+            running on the MPU hardware and used to communicate status to the CNC software.
+            </summary>
+            <param name="bit">Enumeration</param>
+             /// <param name="state">State of the bit</param>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetSkinEventState(System.Int32,System.Int32@)">
+            <summary>
+            Get the state of a "PLC" skin event bit. A "PLC" skin event bit is, in most cases, set by a PC program 
+            running on the MPU hardware and used to communicate status to the CNC software.
+            </summary>
+            <param name="skin_event">Enumeration</param>
+            <param name="state">State of Skin Event</param>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Plc.GetVcpLedStates">
+            <summary>
+            Return the state of output LEDs for the VCP all at once.
+            </summary>
+            <returns>Bit-mapped value. The low bit represents the upper left LED.</returns>
+        </member>
+        <member name="T:CncSkinning.Skinning.Parameter">
+            <summary>
+            Handles getting and setting of machine parameters.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Parameter.#ctor(CncSkinning.Skinning)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="parent">A reference to an already constructed System object.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Parameter.GetMachineParameterValue(System.Int32,System.Double@)">
+            <summary>
+            Get the value of a machine parameter or user variable.
+            </summary>
+            <param name="parameter_num">The number of the machine parameter to get (0-999) or user variable (29000 - 34999)</param>
+            <param name="parameter_value">The value of said machine parameter or user variable</param>
+            <returns>SUCCESS or an error code.</returns>
+            @code
+            // Get the value for machine parameter 32 and store it as myParamValue.
+            returnCode = m_skin.parameter.GetMachineParameterValue(32, out double myParamValue);
+            @endcode
+            <remarks>Note: the reading of user variables 29000-34999 can occur in any job run state or in any menu.</remarks>
+        </member>
+        <member name="M:CncSkinning.Skinning.Parameter.SetMachineParameter(System.Int32,System.Double)">
+            <summary>
+            Sets machine parameter to a given value.
+            </summary>
+            <param name="parameter_num">The parameter number 0-999 or user variable 29000-34999</param>
+            <param name="value">The value to write to the parameter or user variable</param>
+            <returns>true if the parameter was set; false otherwise</returns>
+            @code 
+            // Set machine parameter 32 to a value of 1.
+            returnCode = m_skin.parameter.SetMachineParameter(32, 1);
+            @endcode
+            <remarks>Note: the writing of user variables 29000-34999 can occur in any job run state or in any menu.</remarks>
+        </member>
+        <member name="T:CncSkinning.Skinning.State">
+            <summary>
+            Holds info relating to system state, e.g. move mode, position mode, feedrate, spindle speed, etc.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.State.CircularInterpolationPlane">
+            <summary>
+            The plane for circular interpolation commands.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.CircularInterpolationPlane.XY">
+            <summary>
+            G17 is the XY plane
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.CircularInterpolationPlane.ZX">
+            <summary>
+            G18 is the ZX plane
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.CircularInterpolationPlane.YZ">
+            <summary>
+            G19 is the YZ plane
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.State.CircularInterpolationDirection">
+            <summary>
+            The direction of a circular or helical interpolation.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.CircularInterpolationDirection.CLOCKWISE">
+            <summary>
+            Clockwise Arc.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.CircularInterpolationDirection.COUNTERCLOCKWISE">
+            <summary>
+            Counterclockwise Arc.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.State.FeedHoldState">
+            <summary>
+            An enumeration of possible feed hold states
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.FeedHoldState.FEED_HOLD_ON">
+            <summary>
+            Feed hold button is pressed
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.FeedHoldState.FEED_HOLD_OFF">
+            <summary>
+            Feed hold button is not pressed
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.FeedHoldState.UNKNOWN">
+            <summary>
+            Feed hold status could not be determined.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.State.MdiState">
+            <summary>
+            Are we in MDI or not?
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.MdiState.IN_MDI">
+            <summary>
+            We are in Mdi
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.MdiState.NOT_IN_MDI">
+            <summary>
+            We are not in Mdi
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.MdiState.UNKNOWN">
+            <summary>
+            It is not known if we are in MDI or not.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.State.MoveMode">
+            <summary>
+            Enumerates the different move modes, namely, Rapid, Linear, Clockwise-Arc, and Counterclockwise-Arc
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.MoveMode.RAPID">
+            <summary>
+            Rapid Motion (G0)
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.MoveMode.LINEAR">
+            <summary>
+            Linear Interpolation (G1)
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.MoveMode.CW_ARC">
+            <summary>
+            Clockwise Arc (G2)
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.MoveMode.CCW_ARC">
+            <summary>
+            Counterclockwise Arc (G3)
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.MoveMode.UNKNOWN">
+            <summary>
+            Indicates bad communication with the pipe to CNC12.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.State.PositioningMode">
+            <summary>
+            Enumerates the different positioning modes, namely, Absolute and Incremental
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.PositioningMode.ABSOLUTE">
+            <summary>
+            Absolute Positioning Mode (G90)
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.PositioningMode.INCREMENTAL">
+            <summary>
+            Incremental Positioning Mode (G91)
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.PositioningMode.UNKNOWN">
+            <summary>
+            Indicates bad communication with the pipe to CNC12.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.State.UnitsOfMeasure">
+            <summary>
+            Enumerates the different units of measure, namely, Imperial and Metric
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.UnitsOfMeasure.INCH_UNITS">
+            <summary>
+            Inch Units (G20)
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.UnitsOfMeasure.METRIC_UNITS">
+            <summary>
+            Metric Units (G21)
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.UnitsOfMeasure.UNKNOWN">
+            <summary>
+            Indicates a failure to communicate with CNC12
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.State.Value">
+            <summary>
+            Enumerates different values, maximum or minimum
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.Value.MAX">
+            <summary>
+            Maximum Value
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.Value.MIN">
+            <summary>
+            Minimum Value
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.State.HomingType">
+            <summary>
+            Enumerates the different homing types: Jog, Home Switch, and Ref Mark-HS.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.HomingType.JOG">
+            <summary>
+            Jog Homing
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.HomingType.HOMESWITCH">
+            <summary>
+            Home Switch Homing
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.HomingType.REFMARKHS">
+            <summary>
+            Ref Mark-HS Homing
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.State.HomingType.UNKNOWN">
+            <summary>
+            Unknown homing, usually an error.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.#ctor(CncSkinning.Skinning)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="parent">Is a reference to an already initialized System object.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetScreenSize(System.Int32@,System.Int32@)">
+            <summary>
+            Returns the screen size of the CNC application.
+            </summary>
+            <param name="width">width in pixels</param>
+            <param name="height">height in pixels</param>
+            <returns>SUCCESS</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetMonitorSize(System.Int32@,System.Int32@)">
+            <summary>
+            Returns the monitor size of the CNC application.
+            </summary>
+            <param name="width">width in pixels</param>
+            <param name="height">height in pixels</param>
+            <returns>SUCCESS</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetScreenPosition(System.Int32@,System.Int32@)">
+            <summary>
+            Returns the position of the CNC application.
+            </summary>
+            <param name="x">The x coordinate.</param>
+            <param name="y">The y coordinate</param>
+            <returns>SUCCESS</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetAcornBoardRevision(System.Int32@)">
+            <summary>
+            Get the Acorn Board Revision
+            </summary>
+            <param name="revision">Board Revision</param>
+            <returns>SUCCESS</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetFullPathJobNameCurrent(System.String@)">
+            <summary>
+            Get the full pathname of the currently loaded job.
+            </summary>
+            <param name="job_name">The full pathname of the job that is currently loaded.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetCurrentLineInfo(System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Get the current line number of the executing job.
+            </summary>
+            <param name="line_number">The current line number. This will be zero if not running a job. The line number is for the top-level G-code.</param>
+            <param name="program_number">The current program number.</param>
+            <param name="stack_level">The current stack level.</param>
+            <returns>SUCCESS or an error</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetActiveGCodes(System.String[]@)">
+            <summary>
+            Get the currently active modal G- and M- codes.
+            </summary>
+            <param name="active_g_codes">An array of strings that tell the active g- and m- codes.</param>
+            <returns>SUCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetFeedHoldState(CncSkinning.Skinning.State.FeedHoldState@)">
+            <summary>
+            Get the current feed hold state.
+            </summary>
+            <param name="feed_hold_state">either on, off, or unknown</param>
+            <returns>either SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetGCodeDisplay(System.String[]@)">
+            <summary>
+            Get the list of g-code strings that usually displays on CNC12 when a job is running.
+            </summary>
+            <param name="g_code_display">The list of strings from the CNC12 display</param>
+            <returns>SUCCESS or an error</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetJobNameCurrent(System.String@)">
+            <summary>
+            Get the name of the currently loaded job.
+            </summary>
+            <param name="job_name">The name of the job that is currently loaded.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.CheckIfJobIsRunning">
+            <summary>
+            Send a command over the pipe to check if a job is currently running.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetCurrentStackLevelZeroLineInfo(System.Int32@,System.Int32@)">
+            <summary>
+            Get the current line number of the orginal executing job exlcudes calls to marcos.
+            </summary>
+            <param name="line_number">The current line number. This will be zero if not running a job. The line number is for the top-level G-code.</param>
+            <param name="program_number">The current program number.</param>
+            <returns>SUCCESS or an error</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetMdiState(CncSkinning.Skinning.State.MdiState@)">
+            <summary>
+            
+            </summary>
+            <param name="mdi_state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetMoveMode(CncSkinning.Skinning.State.MoveMode@)">
+            <summary>
+            Get the current move mode (rapid, linear, clockwise arc, counterclockwise arc)
+            </summary>
+            <param name="move_mode">The current state movement mode.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetPositioningMode(CncSkinning.Skinning.State.PositioningMode@)">
+            <summary>
+            Get the positioning mode of the machine currently.
+            </summary>
+            <param name="positioning_mode">Either absolute or incremental.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetUnitsOfMeasureDefault(CncSkinning.Skinning.State.UnitsOfMeasure@)">
+            <summary>
+            Gets the default units of measure from CNC12 (Imperial or Metric)
+            </summary>
+            <param name="units">The units of measure for the control.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.SetDefaultUnits(CncSkinning.Skinning.State.UnitsOfMeasure)">
+            <summary>
+            Set the default units of measure.
+            </summary>
+            <param name="unitsOfMeasure">UnitsOfMeasure enumeration</param>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.SetDroUnits(CncSkinning.Skinning.State.UnitsOfMeasure)">
+            <summary>
+            Set the dro units
+            </summary>
+            <param name="unitsOfMeasure">UnitsOfMeasure enumeration</param>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.SetImperialUnits">
+            <summary>
+            Set the default unit of measure to inch units.
+            </summary>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.SetMetricUnits">
+            <summary>
+            Set the default unit of measure to metric units
+            </summary>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.SetDroImperialUnits">
+            <summary>
+            Set the dro units to imperial
+            </summary>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.SetDroMetricUnits">
+            <summary>
+            Set the dro units to metric
+            </summary>
+            <returns>ReturnCode enumeration</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetUnitsOfMeasureDro(CncSkinning.Skinning.State.UnitsOfMeasure@)">
+            <summary>
+            Gets the dro units of measure from CNC12 (Imperial or Metric)
+            </summary>
+            <param name="units">The dro units.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetFeedrate(System.Double@)">
+            <summary>
+            Return the measured feedrate (accounts for feedrate override knob).
+            </summary>
+            <param name="feedrate">The measured feedrate</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetSpindleSpeed(System.Double@)">
+            <summary>
+            Get the current spindle speed.
+            </summary>
+            <param name="spindle_speed">The current spindle speed</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetCurrentMachinePosition(System.Double[]@)">
+            <summary>
+            Gets the current machine position.
+            </summary>
+            <param name="machine_pos">An array containing current positions for each labelled axis.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetFeedrateOverride(System.Int32@)">
+            <summary>
+            Get the feedrate override as a percent between 1 and max (usually 120).
+            </summary>
+            <param name="feedrate_override">The peedrate override percentage</param>
+            <returns>SUCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetCurrentLocalPosition(System.Double[]@)">
+            <summary>
+            Get the current wcs position.
+            </summary>
+            <param name="local_pos">The current wcs (local) position.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetHighRangeSpindleSpeed(CncSkinning.Skinning.State.Value,System.Double@)">
+            <summary>
+            Get the current Spindle Speed High Range maximum or minimum value.
+            </summary>
+            <param name="max_or_min">Maximum or Minimum value.</param>
+            <param name="high_range_spindle_speed">The returned spindle max/min high range value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.SetHighRangeSpindleSpeed(CncSkinning.Skinning.State.Value,System.Double)">
+            <summary>
+            Set the current Spindle Speed High Range maximum or minimum value.
+            </summary>
+            <param name="max_or_min">Maximum or Minimum value.</param>
+            <param name="value">The value to set.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetMachineHomeAtPowerUp(CncSkinning.Skinning.State.HomingType@)">
+            <summary>
+            Get the currently set machine homing type at power up.
+            </summary>
+            <param name="homing_type">Enumeration of the current homing type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.GetJogState(System.Boolean@)">
+            <summary>
+            Get if the user is jogging the machine or not.
+            </summary>
+            <param name="jog_state">The state of the machine jogging</param>
+            <returns>SUCCESS or an error</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.SetMachineHomeAtPowerUp(CncSkinning.Skinning.State.HomingType)">
+            <summary>
+            Set the machine homing type at power up.
+            </summary>
+            <param name="homing_type">Enumeration of the current homing type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.SetPlasmaInterruptPoint(System.Double,System.Double)">
+            <summary>
+            Set the current Plasma interrupt points.
+            </summary>
+            <param name="interrupt_x">The x value of the interrupt point.</param>
+            <param name="interrupt_y">The y value of the interrupt point.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.IsPCPoweringOff(System.Boolean@)">
+            <summary>
+            Checks if CNC12 triggered a shutdown of the computer
+            </summary>
+            <param name="isPCPoweringOff"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.State.IsAPIRestricted(System.Boolean@)">
+            <summary>
+            Checks if all API calls are restricted in any way (CNC12 Running a job, in a menu that doesn't accept calls, etc.)
+            Note that not every API call is restricted by the state of CNC12
+            </summary>
+            <param name="apiRestricted"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CncSkinning.Skinning.Tool">
+            <summary>
+            Class to handle Mill Tool Info.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Tool.Coolant">
+            <summary>
+            Enumeration for the different methods of coolant.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Coolant.OFF">
+            <summary>
+            Coolant off.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Coolant.MIST">
+            <summary>
+            Coolant mist.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Coolant.FLOOD">
+            <summary>
+            Coolant flood
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Coolant.UNKNOWN">
+            <summary>
+            Indicates an error determining the coolant type.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Tool.SpindleDirection">
+            <summary>
+            Enumeration for the different spindle directions.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.SpindleDirection.OFF">
+            <summary>
+            Spindle off.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.SpindleDirection.CW">
+            <summary>
+            Spindle direction clockwise
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.SpindleDirection.CCW">
+            <summary>
+            Spindle direction counterclockwise
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.SpindleDirection.UNKNOWN">
+            <summary>
+            Indicates an error in determining the spindle direction.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Tool.ToolWearAdjustmentType">
+            <summary>
+            Which axis for tool wear adjustment.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.ToolWearAdjustmentType.TOOL_WEAR_ADJUSTMENT_X">
+            <summary>
+            X axis.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.ToolWearAdjustmentType.TOOL_WEAR_ADJUSTMENT_Z">
+            <summary>
+            Z axis.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.Skinning.Tool.Info">
+            <summary>
+            Structure to hold tool library info.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Info.number">
+            <summary>
+            Tool Number.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Info.bin">
+            <summary>
+            This field tells the bin number of tool.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Info.h_number">
+            <summary>
+            This field specifies a default Height Offset (H) number to use with each tool. Possible values are 1 to 200.
+            Intercon uses this information to provide a default H value at each tool change.The CNC software also uses this
+            information to correct for the length of the tool that is used to establish the Z-axis position in Part Setup
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Info.height_offset">
+            <summary>
+            This is the distance the control adjusts Z-axis positions when tool length compensation (G43 or G44) is used with a
+            particular H value
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Info.d_number">
+            <summary>
+            This field specifies a default Diameter (D) number to use with each tool. Possible values are 1 to 200. Intercon
+            uses this information to provide a default D value at each tool change.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Info.diameter_offset">
+            <summary>
+            This field tells the control the distance to adjust when cutter diameter compensation (G41 or G42) is used with a
+            particular D value.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Info.coolant">
+            <summary>
+            This field specifies a default coolant type to use with each tool. Possible values are FLOOD, MIST, or OFF.
+            Intercon uses this information to automatically insert M7 or M8 after a tool change.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Info.spindle_direction">
+            <summary>
+            This field specifies a default spindle direction to use with each tool. Possible values are CW, CCW, or OFF.
+            Intercon uses this information to automatically insert M3 or M4 after a tool change.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Info.spindle_speed">
+            <summary>
+            This field specifies a default spindle speed to use with each tool. Possible values are 0 to 500000. Intercon uses
+            this information to automatically insert an S code after a tool change.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Tool.Info.description">
+            <summary>
+            Tool Description.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.#ctor(CncSkinning.Skinning)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="parent">parent is a reference to an already constructed System object.</param>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolNumber(System.Int32@)">
+            <summary>
+            Gets the current tool number.
+            </summary>
+            <param name="tool_number">The current tool number.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetCurrentHeightOffsetNumber(System.Int32@)">
+            <summary>
+            Gets the current Height offset number.
+            </summary>
+            <param name="height_offset_number">The current height offset number (H)</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolInfo">
+            <summary>
+            Get info for the current tool.
+            </summary>
+            <returns>Tool info for the current tool.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolInfo(System.Int32)">
+            <summary>
+            Gets tool info for the tool with specified tool number.
+            </summary>
+            <param name="t">The specified tool number.</param>
+            <returns>Tool infor for tool t.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolLibrary(System.Collections.Generic.List{CncSkinning.Skinning.Tool.Info}@)">
+            <summary>
+            Gets tool info for all tools with in the tool library.
+            </summary>
+            <param name="ToolLibrary">List of tool infos.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolDescription(System.String@)">
+            <summary>
+            Get the description for the current tool.
+            </summary>
+            <param name="description">The tool description of the current tool.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolDescription(System.Int32,System.String@)">
+            <summary>
+            Get the description for the specified tool.
+            </summary>
+            <param name="i">The specified tool number.</param>
+            <param name="description">The tool description of the specified tool.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetHeightOffsetAmount(System.Double@)">
+            <summary>
+            Get the height offset amount for the current H number.
+            </summary>
+            <param name="height_offset_amount">The height offset amount for the current H number.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetHeightOffsetAmount(System.Int32,System.Double@)">
+            <summary>
+            Get the height offset amount for the specified H number.
+            </summary>
+            <param name="H">The specified H number.</param>
+            <param name="height_offset_amount">The height offset amount for the given H number.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetDiameterOffsetAmount(System.Double@)">
+            <summary>
+            Gets the diameter offset amount for the specified D number.
+            </summary>
+            <param name="diameter_offset_amount">The diameter offset amount for the specified D number.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetDiameterOffsetAmount(System.Int32,System.Double@)">
+            <summary>
+            Gets the diameter offset amount for the specified D number.
+            </summary>
+            <param name="D">The specified D number.</param>
+            <param name="diameter_offset_amount">The diameter offset amount for the specified D number.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolSpindleSpeed(System.Int32@)">
+            <summary>
+            Gets the spindle speed for the current tool.
+            </summary>
+            <param name="tool_spindle_speed">The spindle speed for the current tool.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolSpindleSpeed(System.Int32,System.Int32@)">
+            <summary>
+            Gets the spindle speed for the specified tool number.
+            </summary>
+            <param name="T">The specified tool number.</param>
+            <param name="tool_spindle_speed">The spindle speed for tool T.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetCoolant(CncSkinning.Skinning.Tool.Coolant@)">
+            <summary>
+            Gets the coolant info for the current tool.
+            </summary>
+            <param name="coolant">The coolant for the current tool.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetCoolant(System.Int32,CncSkinning.Skinning.Tool.Coolant@)">
+            <summary>
+            Gets the coolant info for the specified tool.
+            </summary>
+            <param name="T">The specified tool number.</param>
+            <param name="coolant">The coolant for tool T.</param>
+            <returns>The coolant info for tool T.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolSpindleDirection(CncSkinning.Skinning.Tool.SpindleDirection@)">
+            <summary>
+            Gets the spindle direction for the current tool.
+            </summary>
+            <param name="spindle_direction">The spindle direction for the current tool.</param>
+            <returns>The spindle direction for the current tool.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolSpindleDirection(System.Int32,CncSkinning.Skinning.Tool.SpindleDirection@)">
+            <summary>
+            Gets the spindle direction for the specified tool.
+            </summary>
+            <param name="T">The specified tool number.</param>
+            <param name="spindle_direction">The spindle direction for tool T.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolBin(System.Int32@)">
+            <summary>
+            Gets the Tool Bin from active tool.
+            </summary>
+            <param name="bin">The bin number for the active tool.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolBin(System.Int32,System.Int32@)">
+            <summary>
+            Gets the bin number for the specified tool.
+            </summary>
+            <param name="T">The specified tool bin number.</param>
+            <param name="bin">The bin number for tool T</param>
+            <returns>Gets the bin number for tool T.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.SetToolInfo(System.Int32,CncSkinning.Skinning.Tool.Info)">
+            <summary>
+            Specifies the information for tool
+            </summary>
+            <param name="T">The tool number</param>
+            <param name="Tinfo">Tool info struct created by user</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.SetBinNumber(System.Int32,System.Int32)">
+            <summary>
+            Specifies the information for tool
+            </summary>
+            <param name="T">Specified Tool number</param>
+            <param name="value">New bin number</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.SetCoolant(System.Int32,CncSkinning.Skinning.Tool.Coolant)">
+            <summary>
+            Set the coolant method
+            </summary>
+            <param name="T">Specified Tool number</param>
+            <param name="type">New coolant method</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.SetToolHeightOffsetAmout(System.Int32,System.Double)">
+            <summary>
+            Set the tool height offset Amount
+            </summary>
+            <param name="T">Specified Tool number</param>
+            <param name="value">New height offset Amount</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.SetToolDiameterOffsetAmout(System.Int32,System.Double)">
+            <summary>
+            Set the tool diameter offset Amount
+            </summary>
+            <param name="T">Specified Tool number</param>
+            <param name="value">New diameter offset Amount</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.SetSpindleDirection(System.Int32,CncSkinning.Skinning.Tool.SpindleDirection)">
+            <summary>
+            Set the tool spindle direction
+            </summary>
+            <param name="T">Specified Tool number</param>
+            <param name="dir">Spindle direction</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.SetSpindleSpeed(System.Int32,System.Int64)">
+            <summary>
+            Set the tool spindle speed
+            </summary>
+            <param name="T">Specified Tool number</param>
+            <param name="speed">Spindle speed</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.SetToolDescription(System.Int32,System.String)">
+            <summary>
+            Set the Tool Description.
+            </summary>
+            <param name="T">Specified Tool number</param>
+            <param name="description">Description, the description can only be 20 characters long</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.SetToolDNumber(System.Int32,System.Int32)">
+            <summary>
+            Set the Tool Diameter Number
+            </summary>
+            <param name="T">Specified Tool number</param>
+            <param name="dia">Diameter Number</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.SetToolHNumber(System.Int32,System.Int32)">
+            <summary>
+            Set the Tool Height Number
+            </summary>
+            <param name="T">Specified Tool number</param>
+            <param name="height">Height Number</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolHNumber(System.Int32@)">
+            <summary>
+            Gets the H number for the active tool.
+            </summary>
+            <param name="h_number">The H number for the active tool.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolHNumber(System.Int32,System.Int32@)">
+            <summary>
+            Gets the H number for the specified tool.
+            </summary>
+            <param name="T">The specified tool number.</param>
+            <param name="h_number">The H number for tool T</param>
+            <returns>Gets the H number for tool T.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolDNumber(System.Int32@)">
+            <summary>
+            Gets the D number for the active tool.
+            </summary>
+            <param name="d_number">The d number for the active tool</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetToolDNumber(System.Int32,System.Int32@)">
+            <summary>
+            Gets the D number for the specified tool.
+            </summary>
+            <param name="T">The specified tool number.</param>
+            <param name="d_number">The D number for tool T.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.SetWearAdjustment(System.Int32,CncSkinning.Skinning.Tool.ToolWearAdjustmentType,System.Double)">
+            <summary>
+            Set the tool wear adjustment for a lathe tool.
+            </summary>
+            <param name="T">The tool number</param>
+            <param name="type">either the X or Z axis</param>
+            <param name="value">the tool wear adjustment value</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Tool.GetWearAdjustment(System.Int32,CncSkinning.Skinning.Tool.ToolWearAdjustmentType,System.Double@)">
+            <summary>
+            Get the tool wear adjustment for a lathe tool.
+            </summary>
+            <param name="T">The tool number</param>
+            <param name="type">either the X or Z axis</param>
+            <param name="value">output variable to hold the tool wear adjustment value</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="T:CncSkinning.Skinning.Wcs">
+            <summary>
+            Class for getting and setting values involving work coordinate system.
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Wcs.#ctor(CncSkinning.Skinning)">
+            <summary>
+            Class constructor.
+            </summary>
+            <param name="parent">Is a reference to an already constructed CncSkinning.System object.</param>
+        </member>
+        <member name="T:CncSkinning.Skinning.Wcs.WCS">
+            <summary>
+            Enumerates the various work coordinate systems.
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_1">
+            <summary>
+            Wcs #1
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_2">
+            <summary>
+            Wcs #2
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_3">
+            <summary>
+            Wcs #3
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_4">
+            <summary>
+            Wcs #4
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_5">
+            <summary>
+            Wcs #5
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_6">
+            <summary>
+            Wcs #6
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_7">
+            <summary>
+            Wcs #7
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_8">
+            <summary>
+            Wcs #8
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_9">
+            <summary>
+            Wcs #9
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_10">
+            <summary>
+            Wcs #10
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_11">
+            <summary>
+            Wcs #11
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_12">
+            <summary>
+            Wcs #12
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_13">
+            <summary>
+            Wcs #13
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_14">
+            <summary>
+            Wcs #14
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_15">
+            <summary>
+            Wcs #15
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_16">
+            <summary>
+            Wcs #16
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_17">
+            <summary>
+            Wcs #17
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_18">
+            <summary>
+            Wcs #18
+            </summary>
+        </member>
+        <member name="F:CncSkinning.Skinning.Wcs.WCS.WCS_UNKNOWN">
+            <summary>
+            The wcs could not be determined
+            </summary>
+        </member>
+        <member name="M:CncSkinning.Skinning.Wcs.GetActiveWcs(CncSkinning.Skinning.Wcs.WCS@)">
+            <summary>
+            Get the active wcs.
+            </summary>
+            <param name="wcs_number">The active wcs.</param>
+            <returns>The active wcs (1 - 18)</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Wcs.GetWorkpieceOrigin(System.Int32,System.Double@)">
+            <summary>
+            Get Part-zero for the active wcs and a specified axis.
+            </summary>
+            <param name="axis">The specified axis (1-8)</param>
+            <param name="origin">The origin for the specified axis under the current wcs.</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Wcs.GetWorkpieceOrigin(System.Int32,System.Int32,System.Double@)">
+            <summary>
+            Get Part-zero for the specified wcs and axis.
+            </summary>
+            <param name="wcs">The specified wcs (1-18).</param>
+            <param name="axis">The specified axis (1-8)</param>
+            <param name="origin">The origin for the specified axis on the specified wcs</param>
+            <returns>Returns origin for specified wcs and axis.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Wcs.GetWorkpieceReference(System.Int32,System.Int32,System.Double@)">
+            <summary>
+            Get reference point from the return menu in the work coordinate settings.
+            </summary>
+            <param name="ret">The specified return (1-4).</param>
+            <param name="axis">The specified axis (1-8)</param>
+            <param name="reference">The origin for the specified axis on the specified wcs</param>
+            <returns>Returns origin for specified wcs and axis.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Wcs.SelectNextWcs">
+            <summary>
+            Select the next wcs.
+            </summary>
+            <returns>true, if the operation was successful; false otherwise</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Wcs.SelectPrevWcs">
+            <summary>
+            Select the previous wcs.
+            </summary>
+            <returns>SUCCESS or an error code</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Wcs.SetWorkpieceOrigin">
+            <summary>
+            Attempt to set the Part-Zero for all axes for the ACTIVE WCS.
+            </summary>
+            <returns>SUCCESS or an error code</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Wcs.SetWorkpieceReference(System.Int32,System.Int32,System.Double)">
+            <summary>
+            Set reference point from the return menu in the work coordinate settings.
+            </summary>
+            <param name="ret">The specified wcs (1-4)</param>
+            <param name="axis">The specified axis (1-8)</param>
+            <param name="point">The point the user wants to set the reference point to</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Wcs.SetWorkpieceOrigin(System.Int32)">
+            <summary>
+            Attempt to set the Part-Zero for a specified axis for the ACTIVE WCS.
+            </summary>
+            <param name="axis">The specified axis (1-8)</param>
+            <returns>SUCCESS or an error code</returns>
+        </member>
+        <member name="M:CncSkinning.Skinning.Wcs.SetWorkpieceOrigin(System.Int32,System.Int32)">
+            <summary>
+            Attempt to set the Part-Zero for a specified axis and a specified WCS.
+            </summary>
+            <param name="wcs">The specified wcs (1-18)</param>
+            <param name="axis">The specified axis (1-8)</param>
+            <returns>SUCCESS or an error code.</returns>
+        </member>
+        <member name="T:CncSkinning.NamespaceDoc">
+            <summary>
+            The <see cref="N:CncSkinning"/> namespace contains classes for skinning.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.PcToMpuSysVarBit">
+            <summary>
+            Enumerations for system variable bits sent from CNC software to MPU hardware.
+            </summary>
+        </member>
+        <member name="T:CncSkinning.MpuToPcSysVarBit">
+            <summary>
+            Enumerations for system variable bits sent from MPU hardware to CNC software.
+            </summary>
+        </member>
+    </members>
+</doc>

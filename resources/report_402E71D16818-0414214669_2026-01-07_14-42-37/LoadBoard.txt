@@ -1,0 +1,63 @@
+; LoadBoard.txt - Pick up the top board and move it to the transfer position
+;
+;  Call: G65 "c:\cncm\LoadBoard.txt"
+;
+;  This routine loads just one sheet, then returns.  It is up to the calling
+;  routine to implement continuous looping if that is requested.
+
+;;; check that all components are in their ready states
+M83         ; move suction cups back up, wait for confirmation
+M84         ; suction cups vacuum off
+
+M101/70004  ; wait until transfer area is clear (previous board picked up)
+
+N100 IF [#50039==1] THEN GOTO 110
+    #140 = 1.0
+    M225 #140 "Material stack is empty"
+    G65 "c:\cncm\LoadNewMaterial.txt"  ; move lift down and axes clear
+    #140 = 0
+    M225 #140 "Load new material onto the lift.\nPress Start when ready"
+    GOTO 100
+N110
+
+M103/5      ; start error timer
+M61         ; move lift down
+M100/50041  ; wait until board sensor is not triggered
+M104        ; cancel error timer
+M81         ; stop moving lift down
+
+M103/10     ; start error timer
+M62         ; move lift up
+M101/70003  ; wait until board is in position (P730 time after sensor triggered)
+M104        ; cancel error timer
+M82         ; stop moving lift up
+
+G53 Y#9731  ; move Y axis to pre-set position for pickup
+
+M103/30     ; start error timer
+M64         ; suction on
+M63         ; move suction cups down
+M101/50045  ; wait for vacuum detected (cups seated against board)
+M104        ; cancel error timer
+M94/98      ; signal the PLC program that we are moving a board
+G4 P1.0     ; pause to ensure suction cups are fully seated
+M83         ; move suction cups back up, wait for confirmation
+
+M101/50007  ; wait for router to signal that it is clear of the transfer area
+
+G53 Y#9732 L#9733   ; move Y axis to transfer position, at specfied feedrate
+
+M63         ; move suction cups down
+G4 P1.0     ; wait long enough to set the board down on the surface
+
+N200 IF [#50042==1] THEN GOTO 210
+    #140 = 0
+    M225 #140 "Panel not detected at transfer position!\nMove panel into place and press Start"
+    GOTO 200
+N210
+
+M95/98      ; signal the PLC program that we are no longer moving a board
+
+M84         ; release vacuum
+M100/50045  ; wait for vacuum no longer detected
+M83         ; return suction cups up

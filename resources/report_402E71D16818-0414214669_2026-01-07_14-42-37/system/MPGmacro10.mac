@@ -1,0 +1,4 @@
+; MPGmacro10 - Start Panel Load Cycle
+N100
+    G65 "c:\cncm\LoadBoard.txt"
+IF [#61195==1] THEN GOTO 100 ; Repeat if "Auto Load" mode is selected on VCP

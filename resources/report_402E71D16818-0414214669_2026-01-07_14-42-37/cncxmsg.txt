@@ -1,0 +1,10 @@
+INP6
+"Waiting for suction cups up..."
+INP41
+"Waiting for lift down..."
+INP45
+"Waiting for suction against board..."
+MEM3
+"Waiting for lift up..."
+MEM4
+"Waiting for transfer area clear..."

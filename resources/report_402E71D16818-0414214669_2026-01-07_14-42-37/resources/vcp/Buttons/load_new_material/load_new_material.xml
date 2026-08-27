@@ -1,0 +1,5 @@
+<vcp_button>
+    <run>
+        <macro>c:\cncm\LoadNewMaterial.txt</macro>
+    </run>
+</vcp_button>

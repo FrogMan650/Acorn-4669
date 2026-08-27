@@ -1,0 +1,7 @@
+09/10/2025 09:47:01
+Failed to open park.mac file.
+System.ComponentModel.Win32Exception (0x80004005): No application is associated with the specified file for this operation
+   at System.Diagnostics.Process.StartWithShellExecuteEx(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at Wizard.Pages.Views.AxisHoming.LaunchEditParkMacro(Object sender, RoutedEventArgs e)
+

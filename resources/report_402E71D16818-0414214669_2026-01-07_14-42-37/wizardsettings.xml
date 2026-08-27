@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WizardSettings>
+  <StartLocation value="TopLeft" />
+  <StartupSize value="Normal" />
+  <AlwaysOnTop value="False" />
+  <ForcePlcWrite value="False" />
+  <CustomPLC value="False" />
+  <CustomVCP value="False" />
+  <VCPorJogPanel value="0" />
+  <JTechON value="0" />
+  <CustomToolChangeMacro value="False" />
+</WizardSettings>

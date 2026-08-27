@@ -1,0 +1,50 @@
+102 Error initializing CPU...cannot continue.            26
+111 V Fast Jog Plus modified: 1800 -> 2000               46
+199 CNC Started                                         301
+201 Exiting CNC due to a known error (63)                26
+204 Exiting CNC...Normal Exit (66)                       52
+302 Moving...                                          2663
+303 Paused...                                            15
+304 MDI...                                               63
+306 Job finished                                        397
+307 Operator abort:  job cancelled                      300
+308 Waiting for input #40 (M101)                        102
+309 Waiting for CYCLE START button                       10
+313 Waiting for dwell time                             4684
+325 Limit:  job cancelled                                11
+327 Fault:  job cancelled                                67
+329 Invalid parameter:  job cancelled                     6
+335 Emergency stop released                             768
+338 Job cancelled                                        88
+340 V- limit (#50037) cleared                           410
+406 Emergency stop detected                             502
+407 V- limit (#50037) tripped                           487
+408 Programmed action timer expired                      87
+417 Abnormal end of job                                   3
+452 Ethernet Communication Error, CNCPC to control        4
+501 Invalid character, line 17                           14
+503 Invalid M function                                    2
+504 Invalid parameter, cncm.hom, line 36                  1
+511 Missing parameter, LoadBoard.txt, line 36             3
+531 M22x missing initial quote                            6
+777 V Pitch modified:    0.0091 ->    0.0222 (turn       15
+907 X axis travel exceeded, line 28                      28
+930 Log Level Configuration file not found... Crea        1
+933 Log file initialized                                  1
+944 MPU requested resend # 1                              8
+945 PC requested resend # 1                              55
+946 PC resending # 2                                      9
+999 Parm #730 modified: 1000.00000 -> 1200.00000         31
+2050 Auto Vac/Blow Mode                                   2
+2051 Manual Vac/Blow Mode                                 3
+2201 Top sheet is at transfer height                     26
+4032 Reset Cleared                                      264
+5200 Lift is at its upper limit                           3
+5201 Collision imminent, lift cannot move up             25
+5202 Lift is at its lower limit                          69
+5203 Panel lost in transfer: reconnect and press S       15
+9031 DRIVE FAULT!                                        23
+9033 Reset Initiated, Press Reset to Clear              377
+9036 LUBE FAULT                                           1
+9039 Software Exited, Cycle E-Stop/Reset to Contin       15
+9055 ETHER1616 OFFLINE!!!                                 4

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfPLCSkinOption xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <PLCSkinOption>
+    <Name>KeepOnTop</Name>
+    <Value>True</Value>
+  </PLCSkinOption>
+  <PLCSkinOption>
+    <Name>Height</Name>
+    <Value>400</Value>
+  </PLCSkinOption>
+  <PLCSkinOption>
+    <Name>Width</Name>
+    <Value>1000</Value>
+  </PLCSkinOption>
+  <PLCSkinOption>
+    <Name>PositionX</Name>
+    <Value>-5</Value>
+  </PLCSkinOption>
+  <PLCSkinOption>
+    <Name>PositionY</Name>
+    <Value>93</Value>
+  </PLCSkinOption>
+</ArrayOfPLCSkinOption>
